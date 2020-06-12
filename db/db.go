@@ -16,6 +16,7 @@ func Init() {
 		panic(err)
 	}
 
+	db = pg.Connect(opt)
 }
 
 
