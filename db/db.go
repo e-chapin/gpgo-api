@@ -19,25 +19,7 @@ func Init() {
 	db = pg.Connect(opt)
 }
 
-
 func GetDB() *pg.DB {
 	return db
 }
-
-//func createSchema(db *pg.DB) error {
-//	models := []interface{}{
-//		(*PracticeItem)(nil),
-//		(*Item)(nil),
-//	}
-//
-//	for _, model := range models {
-//		err := db.CreateTable(model, &orm.CreateTableOptions{
-//			Temp: true, // temp table
-//		})
-//		if err != nil {
-//			return err
-//		}
-//	}
-//	return nil
-//}
 

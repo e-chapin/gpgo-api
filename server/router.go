@@ -14,7 +14,7 @@ func GPRouter() *gin.Engine {
 
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
 	// Simple group: v1
