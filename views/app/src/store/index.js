@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     visibility: "all", // The TV inventory
+    todos: [],
   },
 
   getters: {
@@ -18,11 +19,19 @@ export default new Vuex.Store({
     setVisibility(state, visibility) {
       state.visibility = visibility;
     },
+
+    addTodo(state, todo) {
+      state.todos.push(todo);
+    },
   },
 
   actions: {
     setVisibility(context, visibility) {
       context.commit("setVisibility", visibility);
+    },
+
+    addTodo(context, todo) {
+      context.commit("addTodo", todo);
     },
     // Here we will create Larry
   },
