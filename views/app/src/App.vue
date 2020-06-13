@@ -1,7 +1,12 @@
 <template>
   <div>
     <create-todo v-on:create-todo="addTodo"></create-todo>
-    <todo-list v-bind:todos="todos"></todo-list>
+    <todo-list
+      v-on:set-visibility="setVisibility"
+      v-bind:todos="todos"
+      v-bind:filters="filters"
+      v-bind:visibility="visibility"
+    ></todo-list>
   </div>
 </template>
 
@@ -21,39 +26,76 @@ var todoStorage = {
   },
   save: function(todos) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  }
+  },
 };
+
+// visibility filters
+var filters = {
+  all: function(todos) {
+    return todos;
+  },
+  active: function(todos) {
+    return todos.filter(function(todo) {
+      return !todo.done;
+    });
+  },
+  completed: function(todos) {
+    return todos.filter(function(todo) {
+      return todo.done;
+    });
+  },
+};
+
+// handle routing
 
 export default {
   name: "app",
   components: {
     TodoList,
-    CreateTodo
+    CreateTodo,
   },
 
   methods: {
     addTodo(todo) {
       this.todos.push(todo);
-    }
+    },
+    setVisibility(visibility) {
+      this.$store.dispatch("setVisibility", visibility);
+    },
+  },
+
+  computed: {
+    visibility() {
+      return this.$store.state.visibility;
+    },
   },
 
   data() {
     return {
+      filters: filters,
       todos: todoStorage.fetch(),
       newTodo: "",
       editedTodo: null,
-      visibility: "all"
+      // visibility: this.visibility,
+      // visibility: this.$store.state.visibility,
     };
   },
+
   // watch todos change for localStorage persistence
   watch: {
     todos: {
       handler: function(todos) {
         todoStorage.save(todos);
       },
-      deep: true
-    }
-  }
+      deep: true,
+    },
+    // visibility: {
+    //   handler: function(visibility) {
+    //     this.$store.visibility;
+    //   },
+    //   deep: true,
+    // },
+  },
 };
 </script>
 

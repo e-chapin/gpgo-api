@@ -1,8 +1,17 @@
 <template>
   <div class="ui centered card">
     <div class="content" v-show="!isEditing">
-      <div class="header">{{ todo.title }}</div>
-      <div class="meta">{{ todo.project }}</div>
+      <div v-if="todo.url">
+        <a :href="todo.url" target="_blank">
+          <div class="header">{{ todo.title }}</div>
+        </a>
+      </div>
+      <div v-else>
+        <div class="header">{{ todo.title }}</div>
+      </div>
+
+      <div class="meta">{{ todo.description }}</div>
+      <div class="meta">{{ todo.url }}</div>
       <div class="extra content">
         <span class="right floated edit icon" v-on:click="showForm">
           <i class="edit icon"></i>
@@ -19,8 +28,12 @@
           <input type="text" v-model="todo.title" />
         </div>
         <div class="field">
-          <label>Project</label>
-          <input type="text" v-model="todo.project" />
+          <label>Description</label>
+          <input type="text" v-model="todo.description" />
+        </div>
+        <div class="field">
+          <label>URL</label>
+          <input type="text" v-model="todo.url" />
         </div>
         <div class="ui two button attached buttons">
           <button class="ui basic blue button" v-on:click="hideForm">Close X</button>
