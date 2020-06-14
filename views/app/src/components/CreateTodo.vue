@@ -1,6 +1,10 @@
 <template>
   <div class="ui basic content center aligned segment">
-    <button class="ui basic button icon" v-on:click="openForm" v-show="!isCreating">
+    <button
+      class="ui basic button icon"
+      v-on:click="openForm"
+      v-show="!isCreating"
+    >
       <i class="plus icon"></i>
     </button>
     <div class="ui centered card" v-show="isCreating">
@@ -8,7 +12,13 @@
         <div class="ui form">
           <div class="field">
             <label>Title</label>
-            <input v-model="title" type="text" ref="title" defaultValue @keyup.enter="sendForm()" />
+            <input
+              v-model="title"
+              type="text"
+              ref="title"
+              defaultValue
+              @keyup.enter="sendForm()"
+            />
           </div>
           <div class="field">
             <label>Description</label>
@@ -22,11 +32,21 @@
           </div>
           <div class="field">
             <label>URL</label>
-            <input v-model="url" type="text" ref="project" defaultValue @keyup.enter="sendForm()" />
+            <input
+              v-model="url"
+              type="text"
+              ref="project"
+              defaultValue
+              @keyup.enter="sendForm()"
+            />
           </div>
           <div class="ui two button attached buttons">
-            <button class="ui basic blue button" v-on:click="sendForm()">Create</button>
-            <button class="ui basic red button" v-on:click="closeForm">Cancel</button>
+            <button class="ui basic blue button" v-on:click="sendForm()">
+              Create
+            </button>
+            <button class="ui basic red button" v-on:click="closeForm">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
@@ -41,7 +61,7 @@ export default {
       title: "",
       description: "",
       url: "",
-      isCreating: false
+      isCreating: false,
     };
   },
   methods: {
@@ -60,14 +80,14 @@ export default {
           title,
           description,
           url,
-          done: false
+          done: false,
         });
         this.title = "";
         this.description = "";
         this.url = "";
       }
       this.isCreating = false;
-    }
-  }
+    },
+  },
 };
 </script>

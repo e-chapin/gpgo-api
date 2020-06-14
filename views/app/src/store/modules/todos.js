@@ -42,7 +42,6 @@ const actions = {
   updateTodo(context, todo) {
     context.commit("updateTodo", todo);
   },
-  // Here we will create Larry
 };
 
 export default {
