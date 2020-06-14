@@ -48,6 +48,7 @@ var filters = {
 
 // handle routing
 
+import { mapState } from "vuex";
 export default {
   name: "app",
   components: {
@@ -57,48 +58,27 @@ export default {
 
   methods: {
     addTodo(todo) {
-      this.todos.push(todo);
+      this.$store.dispatch("tds/addTodo", todo);
     },
     setVisibility(visibility) {
-      this.$store.dispatch("setVisibility", visibility);
+      this.$store.dispatch("tds/setVisibility", visibility);
     },
   },
 
   computed: {
-    visibility() {
-      return this.$store.state.visibility;
-    },
-    todos() {
-      return this.$store.state.todos;
-    },
+    ...mapState({
+      visibility: (state) => state.tds.visibility,
+      todos: (state) => state.tds.todos,
+    }),
   },
 
   data() {
     return {
       filters: filters,
-      // todos: todoStorage.fetch(),
       newTodo: "",
       editedTodo: null,
-      // visibility: this.visibility,
-      // visibility: this.$store.state.visibility,
     };
   },
-
-  // watch todos change for localStorage persistence
-  // watch: {
-  //   todos: {
-  //     handler: function(todos) {
-  //       todoStorage.save(todos);
-  //     },
-  //     deep: true,
-  //   },
-  //   // visibility: {
-  //   //   handler: function(visibility) {
-  //   //     this.$store.visibility;
-  //   //   },
-  //   //   deep: true,
-  //   // },
-  // },
 };
 </script>
 
