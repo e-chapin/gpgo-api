@@ -34,7 +34,7 @@ func (i ItemController) AllItems (c *gin.Context) {
 
 	// Select all users.
 	var pi []models.PracticeItem
-	err := pgdb.Model(&pi).Select()
+	err := pgdb.Model(&pi).Order("id asc").Select()
 	if err != nil {
 		panic(err)
 	}

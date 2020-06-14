@@ -22,26 +22,28 @@
     </div>
     <div class="content" v-show="isEditing">
       <div class="ui form">
-        <form>
-          <div class="field">
-            <input type="hidden" name="Id" :value="todo.Id" />
-            <label>Title</label>
-            <input type="text" name="Title" :value="todo.Title" />
-          </div>
-          <div class="field">
-            <label>Description</label>
-            <input type="text" name="Description" :value="todo.Description" />
-          </div>
-          <div class="field">
-            <label>URL</label>
-            <input type="text" name="Url" :value="todo.Url" />
-          </div>
-          <div class="ui two button attached buttons">
-            <button class="ui basic blue button" v-on:click="saveForm">
-              Save
-            </button>
-          </div>
-        </form>
+        <div class="field">
+          <input type="hidden" name="Id" v-model="id" />
+          <input type="hidden" name="Done" v-model="done" />
+          <label>Title</label>
+          <input type="text" name="Title" v-model="title" />
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <input type="text" name="Description" v-model="description" />
+        </div>
+        <div class="field">
+          <label>URL</label>
+          <input type="text" name="Url" v-model="url" />
+        </div>
+        <div class="ui two button attached buttons">
+          <button class="ui basic blue button" v-on:click="saveForm">
+            Save
+          </button>
+          <button class="ui basic red button" v-on:click="closeForm">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
     <div
@@ -72,19 +74,32 @@ export default {
       description: "",
       url: "",
       id: null,
+      done: false,
     };
   },
   methods: {
     showForm() {
       this.isEditing = true;
     },
-    saveForm(e) {
+    closeForm() {
       this.isEditing = false;
-      e.preventDefault();
-      const inputs = e.target.form.getElementsByTagName("input");
-      var td = {};
-      inputs.forEach((input) => (td[input.name] = input.value));
-      this.$emit("update-todo", td);
+      this.title = this.todo.Title;
+      this.description = this.todo.Description;
+      this.url = this.todo.Url;
+    },
+    saveForm() {
+      const Title = this.title;
+      const Description = this.description;
+      const Url = this.url;
+      const Id = this.id;
+      this.$emit("update-todo", {
+        Title,
+        Description,
+        Url,
+        Id,
+        Done: false,
+      });
+      this.isEditing = false;
     },
     completeTodo(todo) {
       todo.done = !todo.done;
@@ -92,6 +107,13 @@ export default {
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
     },
+  },
+  created() {
+    this.title = this.todo.Title;
+    this.description = this.todo.Description;
+    this.url = this.todo.Url;
+    this.id = this.todo.Id;
+    this.done = this.todo.Done;
   },
 };
 </script>

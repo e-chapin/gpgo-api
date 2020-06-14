@@ -78,6 +78,7 @@ const actions = {
         Url: todo.Url,
       })
       .then(() => {
+        // todo: less lazy way
         dispatch("loadItems");
       })
       .catch((error) => {
