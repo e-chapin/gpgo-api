@@ -14,49 +14,56 @@
           {{ remaining | pluralize }} left
         </span>
         <div>
-          <a v-on:click="setVisibility('all')" :class="{ selected: getVisibility == 'all' }">All</a>
+          <a
+            v-on:click="setVisibility('all')"
+            :class="{ selected: getVisibility == 'all' }"
+            >All</a
+          >
         </div>
         <div>
           <a
             v-on:click="setVisibility('active')"
             :class="{ selected: getVisibility == 'active' }"
-          >Active</a>
+            >Active</a
+          >
         </div>
         <div>
           <a
             v-on:click="setVisibility('completed')"
             :class="{ selected: getVisibility == 'completed' }"
-          >Completed</a>
+            >Completed</a
+          >
         </div>
         <button
           class="clear-completed"
           @click="removeCompleted"
           v-show="todos.length > remaining"
-        >Clear completed</button>
+        >
+          Clear completed
+        </button>
       </div>
     </footer>
   </div>
 </template>
 
-<script type = "text/javascript" >
+<script type="text/javascript">
 import Todo from "./todo";
 export default {
   props: ["todos", "filters", "visibility"],
   components: {
-    Todo
+    Todo,
   },
 
   methods: {
     deleteTodo(todo) {
-      const todoIndex = this.todos.indexOf(todo);
-      this.todos.splice(todoIndex, 1);
+      this.$store.dispatch("tds/removeTodo", todo);
     },
     setVisibility(visibility) {
       this.$emit("set-visibility", visibility);
     },
     removeCompleted: function() {
       this.todos = this.filters.active(this.todos);
-    }
+    },
   },
   computed: {
     filteredTodos: function() {
@@ -76,14 +83,14 @@ export default {
         this.todos.forEach(function(todo) {
           todo.completed = value;
         });
-      }
-    }
+      },
+    },
   },
 
   filters: {
     pluralize: function(n) {
       return n === 1 ? "item" : "items";
-    }
-  }
+    },
+  },
 };
 </script>

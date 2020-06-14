@@ -8,15 +8,21 @@
         <div class="ui form">
           <div class="field">
             <label>Title</label>
-            <input v-model="title" type="text" ref="title" defaultValue />
+            <input v-model="title" type="text" ref="title" defaultValue @keyup.enter="sendForm()" />
           </div>
           <div class="field">
             <label>Description</label>
-            <input v-model="description" type="text" ref="project" defaultValue />
+            <input
+              v-model="description"
+              type="text"
+              ref="project"
+              defaultValue
+              @keyup.enter="sendForm()"
+            />
           </div>
           <div class="field">
             <label>URL</label>
-            <input v-model="url" type="text" ref="project" defaultValue />
+            <input v-model="url" type="text" ref="project" defaultValue @keyup.enter="sendForm()" />
           </div>
           <div class="ui two button attached buttons">
             <button class="ui basic blue button" v-on:click="sendForm()">Create</button>

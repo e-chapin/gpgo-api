@@ -1,47 +1,54 @@
-// initial state
-// shape: [{ id, quantity }]
 const state = () => ({
-  items: [],
   visibility: "all",
+  todos: [],
 });
 
-// getters
 const getters = {
-  visibility: (state, getters) => {
-    return state.visibility;
-  },
+  // Here we will create a getter
 };
 
-// // actions
-// const actions = {
-//   checkout({ commit, state }, products) {
-//     const savedCartItems = [...state.items];
-//     commit("setCheckoutStatus", null);
-//     // empty cart
-//     commit("setCartItems", { items: [] });
-//     shop.buyProducts(
-//       products,
-//       () => commit("setCheckoutStatus", "successful"),
-//       () => {
-//         commit("setCheckoutStatus", "failed");
-//         // rollback to the cart saved before sending the request
-//         commit("setCartItems", { items: savedCartItems });
-//       }
-//     );
-//   },
-// };
-
-// mutations
 const mutations = {
   setVisibility(state, visibility) {
     state.visibility = visibility;
   },
+
+  addTodo(state, todo) {
+    state.todos.push(todo);
+  },
+
+  removeTodo(state, todo) {
+    state.todos.splice(state.todos.indexOf(todo), 1);
+  },
+
+  updateTodo(state, todo) {
+    var index = state.todos.indexOf(todo);
+    state.todos[index] = todo;
+  },
+};
+
+const actions = {
+  setVisibility(context, visibility) {
+    context.commit("setVisibility", visibility);
+  },
+
+  addTodo(context, todo) {
+    context.commit("addTodo", todo);
+  },
+
+  removeTodo(context, todo) {
+    context.commit("removeTodo", todo);
+  },
+
+  updateTodo(context, todo) {
+    context.commit("updateTodo", todo);
+  },
+  // Here we will create Larry
 };
 
 export default {
   namespaced: true,
   state,
   getters,
-  //   actions,
+  actions,
   mutations,
 };

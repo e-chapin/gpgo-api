@@ -1,38 +1,25 @@
 import Vue from "vue";
 import Vuex from "vuex";
-// import createLogger from "vuex/dist/logger";
-// import todos from "./modules/todos";
+import VuexPersist from "vuex-persist";
+import createLogger from "vuex/dist/logger";
+import todos from "./modules/todos";
+
+const vuexPersist = new VuexPersist({
+  key: "gpgo",
+  storage: window.localStorage,
+});
 
 Vue.use(Vuex);
 
+const debug = process.env.NODE_ENV !== "production";
+var plugins = debug
+  ? [createLogger(), vuexPersist.plugin]
+  : [vuexPersist.plugin];
+
 export default new Vuex.Store({
-  state: {
-    visibility: "all", // The TV inventory
-    todos: [],
+  plugins: plugins,
+  modules: {
+    tds: todos,
   },
-
-  getters: {
-    // Here we will create a getter
-  },
-
-  mutations: {
-    setVisibility(state, visibility) {
-      state.visibility = visibility;
-    },
-
-    addTodo(state, todo) {
-      state.todos.push(todo);
-    },
-  },
-
-  actions: {
-    setVisibility(context, visibility) {
-      context.commit("setVisibility", visibility);
-    },
-
-    addTodo(context, todo) {
-      context.commit("addTodo", todo);
-    },
-    // Here we will create Larry
-  },
+  strict: debug,
 });

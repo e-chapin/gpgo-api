@@ -36,21 +36,27 @@
           <input type="text" v-model="todo.url" />
         </div>
         <div class="ui two button attached buttons">
-          <button class="ui basic blue button" v-on:click="hideForm">Close X</button>
+          <button class="ui basic blue button" v-on:click="hideForm">
+            Close X
+          </button>
         </div>
       </div>
     </div>
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached green basic button"
-      v-show="!isEditing &&todo.done"
+      v-show="!isEditing && todo.done"
       disabled
-    >Completed</div>
+    >
+      Completed
+    </div>
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached red basic button"
       v-show="!isEditing && !todo.done"
-    >Pending</div>
+    >
+      Pending
+    </div>
   </div>
 </template>
 
@@ -59,7 +65,7 @@ export default {
   props: ["todo"],
   data() {
     return {
-      isEditing: false
+      isEditing: false,
     };
   },
   methods: {
@@ -74,7 +80,16 @@ export default {
     },
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
-    }
-  }
+    },
+  },
+
+  watch: {
+    todo: {
+      handler: function(todo) {
+        this.$store.dispatch("tds/updateTodo", todo);
+      },
+      deep: true,
+    },
+  },
 };
 </script>
