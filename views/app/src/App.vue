@@ -55,6 +55,10 @@ export default {
     }),
   },
 
+  created() {
+    this.$store.dispatch("tds/loadItems");
+  },
+
   data() {
     return {
       filters: filters,

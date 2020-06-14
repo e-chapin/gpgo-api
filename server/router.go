@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/e-jameson/gpgo/controllers"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -12,6 +13,10 @@ func GPRouter() *gin.Engine {
 	router.LoadHTMLGlob("templates/*.tmpl.html")
 	router.Static("/static", "static")
 
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://127.0.0.1:8080", "http://localhost:8080"}
+
+	router.Use(cors.New(config))
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", nil)
@@ -23,6 +28,9 @@ func GPRouter() *gin.Engine {
 		itemsController := new(controllers.ItemController)
 		item.GET("/id/:id", itemsController.Item)
 		item.GET("/all", itemsController.AllItems)
+		item.DELETE("/id/:id", itemsController.DeleteItem)
+		item.POST("/new", itemsController.AddItem)
+		item.POST("/edit", itemsController.EditItem)
 	}
 
 	return router

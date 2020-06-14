@@ -73,14 +73,14 @@ export default {
     },
     sendForm() {
       if (this.title.length > 0) {
-        const title = this.title;
-        const description = this.description;
-        const url = this.url;
+        const Title = this.title;
+        const Description = this.description;
+        const Url = this.url;
         this.$emit("create-todo", {
-          title,
-          description,
-          url,
-          done: false,
+          Title,
+          Description,
+          Url,
+          Done: false,
         });
         this.title = "";
         this.description = "";

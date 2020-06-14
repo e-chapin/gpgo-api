@@ -1,17 +1,16 @@
 <template>
   <div class="ui centered card">
     <div class="content" v-show="!isEditing">
-      <div v-if="todo.url">
-        <a :href="todo.url" target="_blank">
-          <div class="header">{{ todo.title }}</div>
+      <div v-if="todo.Url">
+        <a :href="todo.Url" target="_blank">
+          <div class="header">{{ todo.Title }}</div>
         </a>
       </div>
       <div v-else>
-        <div class="header">{{ todo.title }}</div>
+        <div class="header">{{ todo.Title }}</div>
       </div>
 
-      <div class="meta">{{ todo.description }}</div>
-      <div class="meta">{{ todo.url }}</div>
+      <div class="meta">{{ todo.Description }}</div>
       <div class="extra content">
         <span class="right floated edit icon" v-on:click="showForm">
           <i class="edit icon"></i>
@@ -23,29 +22,32 @@
     </div>
     <div class="content" v-show="isEditing">
       <div class="ui form">
-        <div class="field">
-          <label>Title</label>
-          <input type="text" v-model="todo.title" />
-        </div>
-        <div class="field">
-          <label>Description</label>
-          <input type="text" v-model="todo.description" />
-        </div>
-        <div class="field">
-          <label>URL</label>
-          <input type="text" v-model="todo.url" />
-        </div>
-        <div class="ui two button attached buttons">
-          <button class="ui basic blue button" v-on:click="hideForm">
-            Close X
-          </button>
-        </div>
+        <form>
+          <div class="field">
+            <input type="hidden" name="Id" :value="todo.Id" />
+            <label>Title</label>
+            <input type="text" name="Title" :value="todo.Title" />
+          </div>
+          <div class="field">
+            <label>Description</label>
+            <input type="text" name="Description" :value="todo.Description" />
+          </div>
+          <div class="field">
+            <label>URL</label>
+            <input type="text" name="Url" :value="todo.Url" />
+          </div>
+          <div class="ui two button attached buttons">
+            <button class="ui basic blue button" v-on:click="saveForm">
+              Save
+            </button>
+          </div>
+        </form>
       </div>
     </div>
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached green basic button"
-      v-show="!isEditing && todo.done"
+      v-show="!isEditing && todo.Done"
       disabled
     >
       Completed
@@ -53,7 +55,7 @@
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached red basic button"
-      v-show="!isEditing && !todo.done"
+      v-show="!isEditing && !todo.Done"
     >
       Pending
     </div>
@@ -66,29 +68,29 @@ export default {
   data() {
     return {
       isEditing: false,
+      title: "",
+      description: "",
+      url: "",
+      id: null,
     };
   },
   methods: {
     showForm() {
       this.isEditing = true;
     },
-    hideForm() {
+    saveForm(e) {
       this.isEditing = false;
+      e.preventDefault();
+      const inputs = e.target.form.getElementsByTagName("input");
+      var td = {};
+      inputs.forEach((input) => (td[input.name] = input.value));
+      this.$emit("update-todo", td);
     },
     completeTodo(todo) {
       todo.done = !todo.done;
     },
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
-    },
-  },
-
-  watch: {
-    todo: {
-      handler: function(todo) {
-        this.$store.dispatch("tds/updateTodo", todo);
-      },
-      deep: true,
     },
   },
 };
