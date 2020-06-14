@@ -2,7 +2,6 @@
   <div>
     <todo
       v-on:delete-todo="deleteTodo"
-      v-on:update-todo="updateTodo"
       v-for="todo in filteredTodos"
       v-bind:todo="todo"
       v-bind:visibility="visibility"
@@ -58,9 +57,6 @@ export default {
   methods: {
     deleteTodo(todo) {
       this.$store.dispatch("tds/removeTodo", todo);
-    },
-    updateTodo(todo) {
-      this.$store.dispatch("tds/updateTodo", todo);
     },
     setVisibility(visibility) {
       this.$emit("set-visibility", visibility);

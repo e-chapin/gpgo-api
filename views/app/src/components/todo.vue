@@ -92,7 +92,7 @@ export default {
       const Description = this.description;
       const Url = this.url;
       const Id = this.id;
-      this.$emit("update-todo", {
+      this.$store.dispatch("tds/updateTodo", {
         Title,
         Description,
         Url,
