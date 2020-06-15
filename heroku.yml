@@ -1,8 +1,14 @@
 # https://devcenter.heroku.com/articles/heroku-yml-build-manifest
 # Officially unsupported, but works.
-build:
-  languages:
-    - go
+#build:
+#  languages:
+#    - go
+#
+#run:
+#  web: gpgo
 
-run:
-  web: gpgo
+build:
+  docker:
+    web: Dockerfile
+#run:
+#  web: bundle exec puma -C config/puma.rb
