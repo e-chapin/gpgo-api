@@ -27,10 +27,12 @@ const mutations = {
   },
 
   updateTodo(state, todo) {
-    var index = state.todos.indexOf(todo);
-    var tds = state.todos;
-    tds.forEach();
-    state.todos[index] = todo;
+    var oldTodo = state.todos.find(function(element) {
+      return element.Id == todo.Id;
+    });
+    var index = state.todos.indexOf(oldTodo);
+    // state.todos[index] = todo;
+    state.todos.splice(index, 1, todo);
   },
 
   removeTodo(state, todo) {
@@ -69,7 +71,7 @@ const actions = {
       });
   },
 
-  updateTodo({ dispatch }, todo) {
+  updateTodo(context, todo) {
     axios
       .post("/item/edit", {
         Id: parseInt(todo.Id),
@@ -77,9 +79,10 @@ const actions = {
         Description: todo.Description,
         Url: todo.Url,
       })
-      .then(() => {
+      .then((result) => {
         // todo: less lazy way
-        dispatch("loadItems");
+        // dispatch("loadItems");
+        context.commit("updateTodo", result.data);
       })
       .catch((error) => {
         throw new Error(`API ${error}`);
