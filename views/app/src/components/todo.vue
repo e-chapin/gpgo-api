@@ -24,7 +24,7 @@
       <div class="ui form">
         <div class="field">
           <input type="hidden" name="Id" v-model="id" />
-          <input type="hidden" name="Done" v-model="done" />
+          <input type="hidden" name="Active" v-model="active" />
           <label>Title</label>
           <input type="text" name="Title" v-model="title" />
         </div>
@@ -49,17 +49,17 @@
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached green basic button"
-      v-show="!isEditing && todo.Done"
+      v-show="!isEditing && todo.Active"
       disabled
     >
-      Completed
+      Active
     </div>
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached red basic button"
-      v-show="!isEditing && !todo.Done"
+      v-show="!isEditing && !todo.Active"
     >
-      Pending
+      Inactive
     </div>
   </div>
 </template>
@@ -74,7 +74,7 @@ export default {
       description: "",
       url: "",
       id: null,
-      done: false,
+      active: false,
     };
   },
   methods: {
@@ -94,19 +94,19 @@ export default {
       const Description = this.description;
       const Url = this.url;
       const Id = this.id;
-      // const Done = this.done;
+      // const Active = this.active;
       this.$store.dispatch("tds/updateTodo", {
         Title,
         Description,
         Url,
         Id,
-        Done: false,
+        Active: false,
       });
       this.isEditing = false;
     },
 
     completeTodo(todo) {
-      const Done = !todo.Done;
+      const Active = !todo.Active;
       const Title = todo.Title;
       const Description = todo.Description;
       const Url = todo.Url;
@@ -116,7 +116,7 @@ export default {
         Description,
         Url,
         Id,
-        Done,
+        Active,
       });
     },
 
@@ -130,7 +130,7 @@ export default {
     this.description = this.todo.Description;
     this.url = this.todo.Url;
     this.id = this.todo.Id;
-    this.done = this.todo.Done;
+    this.active = this.todo.Active;
   },
 };
 </script>

@@ -87,28 +87,12 @@ const actions = {
         Title: todo.Title,
         Description: todo.Description,
         Url: todo.Url,
-        Done: todo.Done,
+        Active: todo.Active,
       })
       .then((result) => {
         // todo: less lazy way
         // dispatch("loadItems");
         context.commit("updateTodo", result.data);
-      })
-      .catch((error) => {
-        throw new Error(`API ${error}`);
-      });
-  },
-
-  completeTodo(context, todo) {
-    axios
-      .post("/item/complete", {
-        Id: parseInt(todo.Id),
-        Done: todo.Done,
-      })
-      .then((result) => {
-        // todo: less lazy way
-        // dispatch("loadItems");
-        context.commit("completeTodo", result.data);
       })
       .catch((error) => {
         throw new Error(`API ${error}`);
