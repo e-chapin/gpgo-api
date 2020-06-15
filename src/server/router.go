@@ -10,7 +10,7 @@ import (
 func GPRouter() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.LoadHTMLGlob("static/*.html")
 	router.Static("/static", "static")
 
 	config := cors.DefaultConfig()
@@ -19,7 +19,7 @@ func GPRouter() *gin.Engine {
 	router.Use(cors.New(config))
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		c.HTML(http.StatusOK, "index.html", nil)
 	})
 
 	// Simple group: v1
