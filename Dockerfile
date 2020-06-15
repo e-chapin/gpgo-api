@@ -1,21 +1,19 @@
-FROM heroku/heroku:18-build as build
-
-COPY . /app
+# Build the Go API
+FROM golang:1.14
 WORKDIR /app
+RUN mkdir bin
+ADD src src
+WORKDIR /app/src
 
-# Setup buildpack
-RUN mkdir -p /tmp/buildpack/heroku/go /tmp/build_cache /tmp/env
-RUN curl https://codon-buildpacks.s3.amazonaws.com/buildpacks/heroku/go.tgz | tar xz -C /tmp/buildpack/heroku/go
+RUN go clean -modcache
 
-#Execute Buildpack
-RUN STACK=heroku-18 /tmp/buildpack/heroku/go/bin/compile /app /tmp/build_cache /tmp/env
+ENV GO111MODULE=on
 
-# Prepare final, minimal image
-FROM heroku/heroku:18
+# sync vendoring
+RUN go mod vendor
+# download packages
+RUN go mod download
+RUN go mod verify
+RUN go build -v -o ../bin/gpgo
 
-COPY --from=build /app /app
-ENV HOME /app
-WORKDIR /app
-RUN useradd -m heroku
-USER heroku
-CMD /app/bin/gpgo
+ENTRYPOINT ["/app/bin/gpgo"]
