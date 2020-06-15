@@ -1,6 +1,9 @@
 package server
 
-import "github.com/e-jameson/gpgo/config"
+import (
+	"github.com/e-jameson/gpgo/config"
+)
+
 
 func Init() {
 
@@ -8,6 +11,7 @@ func Init() {
 
 	c := config.GetConfig()
 	c.Get("port")
+
 	router.Run(":" + c.GetString("Port"))
 
 }

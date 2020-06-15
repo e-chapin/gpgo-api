@@ -29,18 +29,11 @@
         </div>
         <div>
           <a
-            v-on:click="setVisibility('completed')"
-            :class="{ selected: getVisibility == 'completed' }"
-            >Completed</a
+            v-on:click="setVisibility('inactive')"
+            :class="{ selected: getVisibility == 'inactive' }"
+            >Inactive</a
           >
         </div>
-        <button
-          class="clear-completed"
-          @click="removeCompleted"
-          v-show="todos.length > remaining"
-        >
-          Clear completed
-        </button>
       </div>
     </footer>
   </div>
@@ -61,9 +54,6 @@ export default {
     setVisibility(visibility) {
       this.$emit("set-visibility", visibility);
     },
-    removeCompleted: function() {
-      this.todos = this.filters.active(this.todos);
-    },
   },
   computed: {
     filteredTodos: function() {
@@ -81,7 +71,7 @@ export default {
       },
       set: function(value) {
         this.todos.forEach(function(todo) {
-          todo.completed = value;
+          todo.active = value;
         });
       },
     },

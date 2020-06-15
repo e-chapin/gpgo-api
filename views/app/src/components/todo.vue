@@ -1,17 +1,16 @@
 <template>
   <div class="ui centered card">
     <div class="content" v-show="!isEditing">
-      <div v-if="todo.url">
-        <a :href="todo.url" target="_blank">
-          <div class="header">{{ todo.title }}</div>
+      <div v-if="todo.Url">
+        <a :href="todo.Url" target="_blank">
+          <div class="header">{{ todo.Title }}</div>
         </a>
       </div>
       <div v-else>
-        <div class="header">{{ todo.title }}</div>
+        <div class="header">{{ todo.Title }}</div>
       </div>
 
-      <div class="meta">{{ todo.description }}</div>
-      <div class="meta">{{ todo.url }}</div>
+      <div class="meta">{{ todo.Description }}</div>
       <div class="extra content">
         <span class="right floated edit icon" v-on:click="showForm">
           <i class="edit icon"></i>
@@ -24,20 +23,25 @@
     <div class="content" v-show="isEditing">
       <div class="ui form">
         <div class="field">
+          <input type="hidden" name="Id" v-model="id" />
+          <input type="hidden" name="Active" v-model="active" />
           <label>Title</label>
-          <input type="text" v-model="todo.title" />
+          <input type="text" name="Title" v-model="title" />
         </div>
         <div class="field">
           <label>Description</label>
-          <input type="text" v-model="todo.description" />
+          <input type="text" name="Description" v-model="description" />
         </div>
         <div class="field">
           <label>URL</label>
-          <input type="text" v-model="todo.url" />
+          <input type="text" name="Url" v-model="url" />
         </div>
         <div class="ui two button attached buttons">
-          <button class="ui basic blue button" v-on:click="hideForm">
-            Close X
+          <button class="ui basic blue button" v-on:click="saveForm">
+            Save
+          </button>
+          <button class="ui basic red button" v-on:click="closeForm">
+            Cancel
           </button>
         </div>
       </div>
@@ -45,17 +49,17 @@
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached green basic button"
-      v-show="!isEditing && todo.done"
+      v-show="!isEditing && todo.Active"
       disabled
     >
-      Completed
+      Active
     </div>
     <div
       v-on:click="completeTodo(todo)"
       class="ui bottom attached red basic button"
-      v-show="!isEditing && !todo.done"
+      v-show="!isEditing && !todo.Active"
     >
-      Pending
+      Inactive
     </div>
   </div>
 </template>
@@ -66,30 +70,67 @@ export default {
   data() {
     return {
       isEditing: false,
+      title: "",
+      description: "",
+      url: "",
+      id: null,
+      active: false,
     };
   },
   methods: {
     showForm() {
       this.isEditing = true;
     },
-    hideForm() {
+
+    closeForm() {
+      this.isEditing = false;
+      this.title = this.todo.Title;
+      this.description = this.todo.Description;
+      this.url = this.todo.Url;
+    },
+
+    saveForm() {
+      const Title = this.title;
+      const Description = this.description;
+      const Url = this.url;
+      const Id = this.id;
+      // const Active = this.active;
+      this.$store.dispatch("tds/updateTodo", {
+        Title,
+        Description,
+        Url,
+        Id,
+        Active: false,
+      });
       this.isEditing = false;
     },
+
     completeTodo(todo) {
-      todo.done = !todo.done;
+      const Active = !todo.Active;
+      const Title = todo.Title;
+      const Description = todo.Description;
+      const Url = todo.Url;
+      const Id = todo.Id;
+      this.$store.dispatch("tds/updateTodo", {
+        Title,
+        Description,
+        Url,
+        Id,
+        Active,
+      });
     },
+
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
     },
   },
 
-  watch: {
-    todo: {
-      handler: function(todo) {
-        this.$store.dispatch("tds/updateTodo", todo);
-      },
-      deep: true,
-    },
+  created() {
+    this.title = this.todo.Title;
+    this.description = this.todo.Description;
+    this.url = this.todo.Url;
+    this.id = this.todo.Id;
+    this.active = this.todo.Active;
   },
 };
 </script>

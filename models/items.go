@@ -5,10 +5,10 @@ import "fmt"
 type PracticeItem struct {
 	tableName   struct{} `pg:"practice_item"`
 	Id          int
-	Text        string
+	Title        string
 	Description string
 	Url         string
-	IsCompleted bool
+	Active bool
 }
 
 type Item struct {

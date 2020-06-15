@@ -21,12 +21,12 @@ var filters = {
   },
   active: function(todos) {
     return todos.filter(function(todo) {
-      return !todo.done;
+      return todo.Active;
     });
   },
-  completed: function(todos) {
+  inactive: function(todos) {
     return todos.filter(function(todo) {
-      return todo.done;
+      return !todo.Active;
     });
   },
 };
@@ -53,6 +53,10 @@ export default {
       visibility: (state) => state.tds.visibility,
       todos: (state) => state.tds.todos,
     }),
+  },
+
+  created() {
+    this.$store.dispatch("tds/loadItems");
   },
 
   data() {

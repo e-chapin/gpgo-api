@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const state = () => ({
   visibility: "all",
   todos: [],
@@ -8,21 +10,42 @@ const getters = {
 };
 
 const mutations = {
+  saveItems(state, items) {
+    state.todos = items;
+  },
+
   setVisibility(state, visibility) {
     state.visibility = visibility;
   },
 
   addTodo(state, todo) {
-    state.todos.push(todo);
+    if (state.todos != null) {
+      state.todos.push(todo);
+    } else {
+      state.todos = [todo];
+    }
+  },
+
+  updateTodo(state, todo) {
+    var oldTodo = state.todos.find(function(element) {
+      return element.Id == todo.Id;
+    });
+    var index = state.todos.indexOf(oldTodo);
+    // state.todos[index] = todo;
+    state.todos.splice(index, 1, todo);
+  },
+
+  completeTodo(state, todo) {
+    var oldTodo = state.todos.find(function(element) {
+      return element.Id == todo.Id;
+    });
+    var index = state.todos.indexOf(oldTodo);
+    // state.todos[index] = todo;
+    state.todos.splice(index, 1, todo);
   },
 
   removeTodo(state, todo) {
     state.todos.splice(state.todos.indexOf(todo), 1);
-  },
-
-  updateTodo(state, todo) {
-    var index = state.todos.indexOf(todo);
-    state.todos[index] = todo;
   },
 };
 
@@ -31,16 +54,60 @@ const actions = {
     context.commit("setVisibility", visibility);
   },
 
-  addTodo(context, todo) {
-    context.commit("addTodo", todo);
+  loadItems(context) {
+    axios
+      .get("/item/all")
+      .then((result) => {
+        context.commit("saveItems", result.data);
+      })
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
   },
 
-  removeTodo(context, todo) {
-    context.commit("removeTodo", todo);
+  addTodo(context, todo) {
+    axios
+      .post("/item/new", {
+        Title: todo.Title,
+        Description: todo.Description,
+        Url: todo.Url,
+      })
+      .then((result) => {
+        context.commit("addTodo", result.data);
+      })
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
   },
 
   updateTodo(context, todo) {
-    context.commit("updateTodo", todo);
+    axios
+      .post("/item/edit", {
+        Id: parseInt(todo.Id),
+        Title: todo.Title,
+        Description: todo.Description,
+        Url: todo.Url,
+        Active: todo.Active,
+      })
+      .then((result) => {
+        // todo: less lazy way
+        // dispatch("loadItems");
+        context.commit("updateTodo", result.data);
+      })
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
+  },
+
+  removeTodo(context, todo) {
+    axios
+      .delete("/item/id/" + todo.Id)
+      .then(() => {
+        context.commit("removeTodo", todo);
+      })
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
   },
 };
 
