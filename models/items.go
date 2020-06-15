@@ -8,7 +8,7 @@ type PracticeItem struct {
 	Title        string
 	Description string
 	Url         string
-	IsCompleted bool
+	Done bool
 }
 
 type Item struct {

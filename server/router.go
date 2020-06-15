@@ -31,6 +31,7 @@ func GPRouter() *gin.Engine {
 		item.DELETE("/id/:id", itemsController.DeleteItem)
 		item.POST("/new", itemsController.AddItem)
 		item.POST("/edit", itemsController.EditItem)
+		//item.POST("/complete", itemsController.CompleteItem)
 	}
 
 	return router

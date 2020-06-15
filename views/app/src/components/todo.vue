@@ -81,17 +81,20 @@ export default {
     showForm() {
       this.isEditing = true;
     },
+
     closeForm() {
       this.isEditing = false;
       this.title = this.todo.Title;
       this.description = this.todo.Description;
       this.url = this.todo.Url;
     },
+
     saveForm() {
       const Title = this.title;
       const Description = this.description;
       const Url = this.url;
       const Id = this.id;
+      // const Done = this.done;
       this.$store.dispatch("tds/updateTodo", {
         Title,
         Description,
@@ -101,13 +104,27 @@ export default {
       });
       this.isEditing = false;
     },
+
     completeTodo(todo) {
-      todo.done = !todo.done;
+      const Done = !todo.Done;
+      const Title = todo.Title;
+      const Description = todo.Description;
+      const Url = todo.Url;
+      const Id = todo.Id;
+      this.$store.dispatch("tds/updateTodo", {
+        Title,
+        Description,
+        Url,
+        Id,
+        Done,
+      });
     },
+
     deleteTodo(todo) {
       this.$emit("delete-todo", todo);
     },
   },
+
   created() {
     this.title = this.todo.Title;
     this.description = this.todo.Description;

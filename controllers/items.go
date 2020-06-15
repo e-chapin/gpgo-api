@@ -81,6 +81,28 @@ func (i ItemController) EditItem (c *gin.Context) {
 	c.JSON(http.StatusOK, item)
 }
 
+//func (i ItemController) EditItem (c *gin.Context) {
+//
+//	pgdb := db.GetDB()
+//
+//	var item models.PracticeItem
+//	err := c.BindJSON(&item)
+//	if err != nil{
+//		panic(err)
+//	}
+//
+//	err = pgdb.Update(&item)
+//	if err != nil{
+//		panic(err)
+//	}
+//	err = pgdb.Select(&item)
+//	if err != nil {
+//		panic(err)
+//	}
+//
+//	c.JSON(http.StatusOK, item)
+//}
+
 func (i ItemController) DeleteItem (c *gin.Context){
 
 	pgdb := db.GetDB()

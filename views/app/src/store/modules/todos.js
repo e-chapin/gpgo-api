@@ -35,12 +35,25 @@ const mutations = {
     state.todos.splice(index, 1, todo);
   },
 
+  completeTodo(state, todo) {
+    var oldTodo = state.todos.find(function(element) {
+      return element.Id == todo.Id;
+    });
+    var index = state.todos.indexOf(oldTodo);
+    // state.todos[index] = todo;
+    state.todos.splice(index, 1, todo);
+  },
+
   removeTodo(state, todo) {
     state.todos.splice(state.todos.indexOf(todo), 1);
   },
 };
 
 const actions = {
+  setVisibility(context, visibility) {
+    context.commit("setVisibility", visibility);
+  },
+
   loadItems(context) {
     axios
       .get("/item/all")
@@ -50,10 +63,6 @@ const actions = {
       .catch((error) => {
         throw new Error(`API ${error}`);
       });
-  },
-
-  setVisibility(context, visibility) {
-    context.commit("setVisibility", visibility);
   },
 
   addTodo(context, todo) {
@@ -78,11 +87,28 @@ const actions = {
         Title: todo.Title,
         Description: todo.Description,
         Url: todo.Url,
+        Done: todo.Done,
       })
       .then((result) => {
         // todo: less lazy way
         // dispatch("loadItems");
         context.commit("updateTodo", result.data);
+      })
+      .catch((error) => {
+        throw new Error(`API ${error}`);
+      });
+  },
+
+  completeTodo(context, todo) {
+    axios
+      .post("/item/complete", {
+        Id: parseInt(todo.Id),
+        Done: todo.Done,
+      })
+      .then((result) => {
+        // todo: less lazy way
+        // dispatch("loadItems");
+        context.commit("completeTodo", result.data);
       })
       .catch((error) => {
         throw new Error(`API ${error}`);
