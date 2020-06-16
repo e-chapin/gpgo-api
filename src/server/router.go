@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/e-jameson/gpgo/src/config"
 	"github.com/e-jameson/gpgo/src/controllers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -15,9 +14,9 @@ func GPRouter() *gin.Engine {
 	router.Static("/static", "static")
 
 
-	c := config.GetConfig()
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{c.GetString("CORS")}
+	// todo load CORS from config
+	config.AllowOrigins = []string{"*"}
 
 	router.Use(cors.New(config))
 
