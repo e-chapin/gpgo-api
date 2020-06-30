@@ -3,7 +3,7 @@ package models
 import "fmt"
 
 type PracticeItem struct {
-	tableName   struct{} `pg:"practice_item"`
+	tableName   struct{} `pg:"practice_item"` // todo don't think I need this line anymore
 	Id          int
 	Title        string
 	Description string
@@ -11,6 +11,7 @@ type PracticeItem struct {
 	Active bool
 }
 
+// todo delete this
 type Item struct {
 	Id          int
 	Text        string

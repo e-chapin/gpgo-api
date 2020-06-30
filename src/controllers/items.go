@@ -16,13 +16,13 @@ func (i ItemController) Item (c *gin.Context){
 
 	id, err := helpers.GetPathInt(c, "id")
 	if err != nil {
-		panic(err)
+		c.JSON(http.StatusBadRequest, "No Item ID")
 	}
 
 	item := models.PracticeItem{Id: id}
 	err = pgdb.Select(&item)
 	if err != nil {
-		panic(err)
+		c.JSON(http.StatusNotFound, "Item Not Found")
 	}
 
 	c.JSON(http.StatusOK, item)
