@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/e-jameson/gpgo/src/config"
-	"github.com/e-jameson/gpgo/src/controllers"
+	"github.com/e-jameson/gpgo-api/src/config"
+	"github.com/e-jameson/gpgo-api/src/controllers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -12,7 +12,7 @@ import (
 func GPRouter() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("static/*.html")
+	router.LoadHTMLGlob("src/static/*.html")
 	router.Static("/static", "static")
 
 

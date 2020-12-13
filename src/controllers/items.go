@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"github.com/e-jameson/gpgo/src/db"
-	"github.com/e-jameson/gpgo/src/helpers"
-	"github.com/e-jameson/gpgo/src/models"
+	"github.com/e-jameson/gpgo-api/src/db"
+	"github.com/e-jameson/gpgo-api/src/helpers"
+	"github.com/e-jameson/gpgo-api/src/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/e-jameson/gpgo/src/config"
-	"github.com/e-jameson/gpgo/src/db"
-	"github.com/e-jameson/gpgo/src/server"
+	"github.com/e-jameson/gpgo-api/src/config"
+	"github.com/e-jameson/gpgo-api/src/db"
+	"github.com/e-jameson/gpgo-api/src/server"
 	"os"
 
 	_ "github.com/heroku/x/hmetrics/onload"

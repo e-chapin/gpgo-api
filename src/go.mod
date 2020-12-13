@@ -1,4 +1,4 @@
-module github.com/e-jameson/gpgo/src
+module github.com/e-jameson/gpgo-api/src
 
 go 1.14
 

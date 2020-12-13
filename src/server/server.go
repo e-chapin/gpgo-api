@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/e-jameson/gpgo/src/config"
+	"github.com/e-jameson/gpgo-api/src/config"
 )
 
 

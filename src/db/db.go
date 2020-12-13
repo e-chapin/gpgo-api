@@ -1,7 +1,7 @@
 package db
 
 import (
-	"github.com/e-jameson/gpgo/src/config"
+	"github.com/e-jameson/gpgo-api/src/config"
 	"github.com/go-pg/pg/v10"
 )
 
