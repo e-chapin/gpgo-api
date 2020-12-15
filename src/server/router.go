@@ -1,17 +1,28 @@
 package server
 
 import (
+	"fmt"
 	"github.com/e-jameson/gpgo-api/src/config"
 	"github.com/e-jameson/gpgo-api/src/controllers"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"os"
+	"path/filepath"
 	"strings"
 )
 
 func GPRouter() *gin.Engine {
 	router := gin.New()
 	router.Use(gin.Logger())
+
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	fmt.Println(exPath)
+
 	router.LoadHTMLGlob("src/static/*.html")
 	router.Static("/static", "static")
 

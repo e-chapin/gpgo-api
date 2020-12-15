@@ -23,4 +23,6 @@ RUN go mod download
 RUN go mod verify
 RUN go build -v -o ../bin/gpgo
 
-ENTRYPOINT ["/app/bin/gpgo"]
+
+WORKDIR /app
+ENTRYPOINT ["/bin/gpgo"]
