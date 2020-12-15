@@ -17,12 +17,13 @@ RUN go clean -modcache
 ENV GO111MODULE=on
 
 # sync vendoring
-RUN go mod vendor
-# download packages
-RUN go mod download
-RUN go mod verify
-RUN go build -v -o ../bin/gpgo
+#RUN go mod vendor
+## download packages
+#RUN go mod download
+#RUN go mod verify
+#RUN go build -v -o ../bin/gpgo
 
-
+RUN ls -lah
 WORKDIR /app
+RUN ls -lah
 ENTRYPOINT ["/bin/gpgo"]
