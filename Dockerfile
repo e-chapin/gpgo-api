@@ -9,6 +9,7 @@ RUN ls -lah
 WORKDIR /app/src/static
 RUN ls -lah
 
+WORKDIR /app/src
 
 
 RUN go clean -modcache
