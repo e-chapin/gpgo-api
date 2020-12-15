@@ -5,6 +5,12 @@ RUN mkdir bin
 ADD src src
 WORKDIR /app/src
 
+RUN ls -lah
+WORKDIR /app/src/static
+RUN ls -lah
+
+
+
 RUN go clean -modcache
 
 ENV GO111MODULE=on
