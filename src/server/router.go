@@ -41,5 +41,15 @@ func GPRouter() *gin.Engine {
 		//item.POST("/complete", itemsController.CompleteItem)
 	}
 
+	sessions := router.Group("/session")
+	{
+		sessionController := new(controllers.PracticeSessionController)
+		sessions.GET("/id/:id", sessionController.PracticeSession)
+		sessions.GET("/all", sessionController.AllPracticeSessions)
+		sessions.DELETE("/all/:id", sessionController.AllPracticeSessions)
+		sessions.POST("/new", sessionController.AllPracticeSessions)
+		sessions.POST("/edit", sessionController.AllPracticeSessions)
+	}
+
 	return router
 }

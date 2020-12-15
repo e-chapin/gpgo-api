@@ -11,15 +11,6 @@ type PracticeItem struct {
 	Active bool
 }
 
-// todo delete this
-type Item struct {
-	Id          int
-	Text        string
-	Description string
-	Url         string
-	IsCompleted bool
-}
-
-func (p Item) String() string {
-	return fmt.Sprintf("Item<%d %s %v>", p.Id, p.Text, p.IsCompleted)
+func (p PracticeItem) String() string {
+	return fmt.Sprintf("Item<%d %s %v>", p.Id, p.Title, p.Active)
 }
