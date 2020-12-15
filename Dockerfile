@@ -16,7 +16,7 @@ RUN go clean -modcache
 
 ENV GO111MODULE=on
 
- sync vendoring
+# sync vendoring
 RUN go mod vendor
 # download packages
 RUN go mod download
