@@ -8,10 +8,11 @@ github.com/fsnotify/fsnotify
 github.com/gin-contrib/cors
 # github.com/gin-contrib/sse v0.1.0
 github.com/gin-contrib/sse
-# github.com/gin-gonic/gin v1.5.0
+# github.com/gin-gonic/gin v1.7.0
 ## explicit
 github.com/gin-gonic/gin
 github.com/gin-gonic/gin/binding
+github.com/gin-gonic/gin/internal/bytesconv
 github.com/gin-gonic/gin/internal/json
 github.com/gin-gonic/gin/render
 # github.com/go-pg/pg/v10 v10.0.0-beta.2
@@ -27,11 +28,13 @@ github.com/go-pg/pg/v10/types
 github.com/go-pg/urlstruct
 # github.com/go-pg/zerochecker v0.1.1
 github.com/go-pg/zerochecker
-# github.com/go-playground/locales v0.12.1
+# github.com/go-playground/locales v0.13.0
 github.com/go-playground/locales
 github.com/go-playground/locales/currency
-# github.com/go-playground/universal-translator v0.16.0
+# github.com/go-playground/universal-translator v0.17.0
 github.com/go-playground/universal-translator
+# github.com/go-playground/validator/v10 v10.4.1
+github.com/go-playground/validator/v10
 # github.com/golang/protobuf v1.4.2
 github.com/golang/protobuf/proto
 # github.com/hashicorp/hcl v1.0.0
@@ -49,21 +52,15 @@ github.com/hashicorp/hcl/json/token
 ## explicit
 github.com/heroku/x/hmetrics
 github.com/heroku/x/hmetrics/onload
-# github.com/jackc/pgx/v4 v4.6.0
-## explicit
 # github.com/jinzhu/inflection v1.0.0
 github.com/jinzhu/inflection
-# github.com/json-iterator/go v1.1.7
+# github.com/json-iterator/go v1.1.9
 github.com/json-iterator/go
-# github.com/leodido/go-urn v1.1.0
+# github.com/leodido/go-urn v1.2.0
 github.com/leodido/go-urn
-# github.com/lib/pq v1.5.2
-## explicit
 # github.com/magiconair/properties v1.8.1
 github.com/magiconair/properties
-# github.com/manucorporat/sse v0.0.0-20150604091100-c142f0f1baea
-## explicit
-# github.com/mattn/go-isatty v0.0.9
+# github.com/mattn/go-isatty v0.0.12
 github.com/mattn/go-isatty
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
@@ -76,8 +73,6 @@ github.com/pelletier/go-toml
 # github.com/segmentio/encoding v0.1.13
 github.com/segmentio/encoding/ascii
 github.com/segmentio/encoding/json
-# github.com/shurcooL/sanitized_anchor_name v1.0.0
-## explicit
 # github.com/spf13/afero v1.1.2
 github.com/spf13/afero
 github.com/spf13/afero/mem
@@ -117,8 +112,9 @@ go.opentelemetry.io/otel/api/metric/registry
 go.opentelemetry.io/otel/api/propagation
 go.opentelemetry.io/otel/api/trace
 go.opentelemetry.io/otel/api/unit
-# golang.org/x/crypto v0.0.0-20200604202706-70a84ac30bf9
+# golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 golang.org/x/crypto/pbkdf2
+golang.org/x/crypto/sha3
 # golang.org/x/net v0.0.0-20200602114024-627f9648deb9
 golang.org/x/net/context
 # golang.org/x/sys v0.0.0-20200602225109-6fdc65e7d980
@@ -170,13 +166,9 @@ google.golang.org/protobuf/reflect/protoreflect
 google.golang.org/protobuf/reflect/protoregistry
 google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
-# gopkg.in/bluesuncorp/validator.v5 v5.9.1
-## explicit
-# gopkg.in/go-playground/validator.v9 v9.29.1
-gopkg.in/go-playground/validator.v9
 # gopkg.in/ini.v1 v1.51.0
 gopkg.in/ini.v1
-# gopkg.in/yaml.v2 v2.2.7
+# gopkg.in/yaml.v2 v2.2.8
 gopkg.in/yaml.v2
 # mellium.im/sasl v0.2.1
 mellium.im/sasl
